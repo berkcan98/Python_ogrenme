@@ -1,6 +1,6 @@
 tahta = [["___", "___", "___"],
-         ["___", "___", "___"],
-         ["___", "___", "___"]]
+        ["___", "___", "___"],
+        ["___", "___", "___"]]
 
 print("\n"*15)
 
@@ -8,13 +8,13 @@ for i in tahta:
     print("\t".expandtabs(30), *i, end="\n"*2)
 
 kazanma_ölçütleri = [[[0, 0], [1, 0], [2, 0]],
-                     [[0, 1], [1, 1], [2, 1]],
-                     [[0, 2], [1, 2], [2, 2]],
-                     [[0, 0], [0, 1], [0, 2]],
-                     [[1, 0], [1, 1], [1, 2]],
-                     [[2, 0], [2, 1], [2, 2]],
-                     [[0, 0], [1, 1], [2, 2]],
-                     [[0, 2], [1, 1], [2, 0]]]
+                    [[0, 1], [1, 1], [2, 1]],
+                    [[0, 2], [1, 2], [2, 2]],
+                    [[0, 0], [0, 1], [0, 2]],
+                    [[1, 0], [1, 1], [1, 2]],
+                    [[2, 0], [2, 1], [2, 2]],
+                    [[0, 0], [1, 1], [2, 2]],
+                    [[0, 2], [1, 1], [2, 0]]]
 
 x_durumu = []
 o_durumu = []
@@ -29,13 +29,31 @@ while True:
     print()
     print("İŞARET: {}\n".format(işaret))
 
+
     x = input("yukarıdan aşağıya [1, 2, 3]: ".ljust(30))
     if x == "q":
-        break
+        print("çıkılıyor...")     
+        break 
 
     y = input("soldan sağa [1, 2, 3]: ".ljust(30))
-    if y == "q":
+    if x == "q":
+        print("çıkılıyor...")
         break
+    
+    try:
+        x = int(x)
+        y = int(y)
+        
+    
+        if x >= 4 or x <= 0 :
+            print("girdiğiniz sayı 3 den büyük veya 1 den küçük olamaz.")
+            continue
+        if y >= 4 or y <= 0 :
+            print("girdiğiniz sayı 3 den büyük veya 1 den küçük olamaz.")
+            continue
+    except ValueError:
+        print("sadece sayı girebilirsin.")
+        continue
 
     x = int(x)-1
     y = int(y)-1
@@ -49,11 +67,14 @@ while True:
         elif işaret == "O".center(3):
             o_durumu += [[x, y]]
         sıra += 1
+        if sıra == 9:
+            print("berabere kaldınız.")
+            quit()
     else:
         print("\nORASI DOLU! TEKRAR DENEYİN\n")
 
     for i in tahta:
-         print("\t".expandtabs(30), *i, end="\n"*2)
+        print("\t".expandtabs(30), *i, end="\n"*2)
 
     for i in kazanma_ölçütleri:
         o = [z for z in i if z in o_durumu]
